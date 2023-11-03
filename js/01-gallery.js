@@ -40,24 +40,26 @@ createGaleryItems(galleryList);
 // Відкриття модального вікна по кліку на елементі галереї. Для цього ознайомся з документацією і прикладами.
 // Заміна значення атрибута src елемента <img> в модальному вікні перед відкриттям. Використовуй готову розмітку модального вікна із зображенням з прикладів бібліотеки basicLightbox.
 
+
+let instance = null;
+const onDocumentKeyPress = ({ code }) => {
+  if (code !== 'Escape') return;
+  instance.close();
+  document.removeEventListener('keydown', onDocumentKeyPress);
+}
 galleryList.addEventListener('click', (ev) => {
   ev.preventDefault();
 
-  const onDocumentKeyPress = ({ code }) => {
-    if (code === 'Escape') instance.close();
-  }
-
   if (ev.target.nodeName !== "IMG") return;
-  const instance = basicLightbox.create
-  (`
-  <div class="modal">
-    <img src=${ev.target.dataset.source} width="800" height="600">
-  </div>
-  `);
+  instance = basicLightbox.create
+    (`
+    <div class="modal">
+      <img src=${ev.target.dataset.source} width="800" height="600">
+    </div>
+    `);
   instance.show();
 
   document.addEventListener('keydown', onDocumentKeyPress);
-}
-)
+});
 
 
