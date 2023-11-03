@@ -42,13 +42,22 @@ createGaleryItems(galleryList);
 
 galleryList.addEventListener('click', (ev) => {
   ev.preventDefault();
-  const instance = basicLightbox.create(`
+
+  const onDocumentKeyPress = ({ code }) => {
+    if (code === 'Escape') instance.close();
+  }
+
+  if (ev.target.nodeName !== "IMG") return;
+  const instance = basicLightbox.create
+  (`
   <div class="modal">
     <img src=${ev.target.dataset.source} width="800" height="600">
   </div>
-`)
-  instance.show()
+  `);
+  instance.show();
 
-})
+  document.addEventListener('keydown', onDocumentKeyPress);
+}
+)
 
 
