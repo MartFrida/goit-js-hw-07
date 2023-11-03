@@ -14,9 +14,9 @@ console.log(galleryItems);
   </a>
 </li> */}
 
-const galleryList=document.querySelector('ul.gallery');
+const galleryList = document.querySelector('ul.gallery');
 
-const createGaleryItems =(parrent)=> galleryItems.map(item => {
+const createGaleryItems = (parrent) => galleryItems.forEach(item => {
   const galleryItem = document.createElement('li');
   galleryItem.classList.add('gallery__item');
   const galleryLink = document.createElement('a');
@@ -33,18 +33,22 @@ const createGaleryItems =(parrent)=> galleryItems.map(item => {
   galleryLink.append(galleryImage);
 })
 
-galleryList.append(createGaleryItems(galleryList));
-
+createGaleryItems(galleryList);
 
 
 // Реалізація делегування на ul.gallery і отримання url великого зображення.
+// Відкриття модального вікна по кліку на елементі галереї. Для цього ознайомся з документацією і прикладами.
+// Заміна значення атрибута src елемента <img> в модальному вікні перед відкриттям. Використовуй готову розмітку модального вікна із зображенням з прикладів бібліотеки basicLightbox.
 
-galleryList.addEventListener('click', (ev)=>{
+galleryList.addEventListener('click', (ev) => {
   ev.preventDefault();
-  console.log(ev.target.dataset.source);
+  const instance = basicLightbox.create(`
+  <div class="modal">
+    <img src=${ev.target.dataset.source} width="800" height="600">
+  </div>
+`)
+  instance.show()
+
 })
 
 
-// Підключення скрипту і стилів бібліотеки модального вікна basicLightbox. Використовуй CDN сервіс jsdelivr і додай у проект посилання на мініфіковані (.min) файли бібліотеки.
-// Відкриття модального вікна по кліку на елементі галереї. Для цього ознайомся з документацією і прикладами.
-// Заміна значення атрибута src елемента <img> в модальному вікні перед відкриттям. Використовуй готову розмітку модального вікна із зображенням з прикладів бібліотеки basicLightbox.
